@@ -10,6 +10,8 @@ import { usePasswordGenerator } from "./hooks/usePasswordGenerator";
 function App() {
   const [pswdLength, setPswdLength] = useState(RANGE_MIN);
   const [checkboxData, setCheckboxData] = useState([...CheckboxList]);
+  const [isCopied, setIsCopied] = useState(false);
+
   const {
     password: pswd,
     errorMessage: errMsg,
@@ -23,7 +25,13 @@ function App() {
     return "Weak :(";
   }, [pswdLength]);
 
-  const copyHandler = () => window.navigator.clipboard.writeText(pswd);
+  const copyHandler = () => {
+    window.navigator.clipboard.writeText(pswd);
+    setIsCopied(true);
+    setTimeout(() => {
+      setIsCopied(false);
+    }, 1 * 1000);
+  };
   const isCopyBtnEnable = () => pswd?.length > 0;
 
   const pswdChangeHandler = ({ target: { value } }) => setPswdLength(value);
@@ -42,7 +50,7 @@ function App() {
           <div className="sub-text-box">
             <span>{pswd}</span>
             <Button
-              title="Copy"
+              title={isCopied ? "Copied" : "Copy"}
               onClick={copyHandler}
               disable={!isCopyBtnEnable}
             />

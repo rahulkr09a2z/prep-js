@@ -16,20 +16,20 @@ export const usePasswordGenerator = () => {
       setPassword("");
       return;
     }
-    checkboxData &&
-      checkboxData.forEach(({ title, isSelected }) => {
+    selectedOption &&
+      selectedOption.forEach(({ title }) => {
         switch (title) {
           case "Include Uppercase Letters":
-            if (isSelected) charSet += "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+            charSet += "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
             break;
           case "Include Lowercase Letters":
-            if (isSelected) charSet += "abcdefghijklmnopqrstuvwxyz";
+            charSet += "abcdefghijklmnopqrstuvwxyz";
             break;
           case "Include Numbers":
-            if (isSelected) charSet += "1234567890";
+            charSet += "1234567890";
             break;
           case "Include Symbols":
-            if (isSelected) charSet += "!@#$%^&*()-_=+{}[]|:;<,>.?/~";
+            charSet += "!@#$%^&*()-_=+{}[]|:;<,>.?/~";
             break;
           default:
             break;
@@ -41,4 +41,3 @@ export const usePasswordGenerator = () => {
   };
   return { password, errorMessage, generatePassword };
 };
-
