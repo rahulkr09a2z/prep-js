@@ -59,3 +59,42 @@ const Car4 = new CarBuilder("Scorpio")
 
 Car3.get();
 Car4.get();
+
+/////////////////////////////////////////////////////////////////////////
+
+// Class Implementation
+class Bike {
+  constructor(name) {
+    this.name = name;
+  }
+
+  setBrand(brand) {
+    this.brand = brand;
+    return this;
+  }
+
+  setColor(color) {
+    this.color = color;
+    return this;
+  }
+
+  setPower(power) {
+    this.power = power;
+    return this;
+  }
+
+
+  get() {
+    console.log(
+      `${this.name} Bike of ${this.brand} is available in ${this.color} and has a power of ${this.power} HP`
+    );
+  }
+}
+console.log('----------------------------------------------------------------')
+const Bike1 = new Bike("Pulsar").setBrand("Bajaj").setColor("Blue").setPower(220);
+const Bike2 = new Bike("R15").setBrand("BMW").setColor("Yellow").setPower(500);
+
+Bike1.get();
+Bike2.get();
+
+
