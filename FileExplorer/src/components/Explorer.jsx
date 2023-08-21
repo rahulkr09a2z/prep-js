@@ -7,22 +7,25 @@ const Explorer = ({
   classTitle,
   folderCreator,
   fileCreator,
+  deleteHandler,
   path = [],
 }) => {
   return (
     <div className={classTitle} key={classTitle}>
       {data &&
         data.map((item, index) => {
-          return (
-            <div className="item-container" key={item.itemName}>
-              <Folder
-                item={item}
-                path={[...path, index]}
-                folderCreator={folderCreator}
-                fileCreator={fileCreator}
-              />
-            </div>
-          );
+          if (item)
+            return (
+              <div className="item-container" key={item?.itemName}>
+                <Folder
+                  item={item}
+                  path={[...path, index]}
+                  folderCreator={folderCreator}
+                  fileCreator={fileCreator}
+                  deleteHandler={deleteHandler}
+                />
+              </div>
+            );
         })}
     </div>
   );
@@ -32,6 +35,7 @@ Explorer.propTypes = {
   data: PropTypes.array.isRequired,
   folderCreator: PropTypes.func.isRequired,
   fileCreator: PropTypes.func.isRequired,
+  deleteHandler: PropTypes.func.isRequired,
   classTitle: PropTypes.string,
   path: PropTypes.array,
 };

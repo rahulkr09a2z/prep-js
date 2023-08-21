@@ -11,7 +11,7 @@ import {
 function App() {
   const [listData, setListData] = useState([...ExplorerList]);
 
-  const FolderHandler = (action) => {
+  const ExplorerDataHandler = (action) => {
     let newData = [...listData];
 
     return function (path, newItemName) {
@@ -42,14 +42,18 @@ function App() {
             ],
           };
           break;
+        case ExplorerActions.DELETE_ITEM:
+          current[path[path.length - 1]] = null;
+          break;
         default:
           break;
       }
       setListData(newData);
     };
   };
-  const FolderCreator = FolderHandler(ExplorerActions.CREATE_FOLDER);
-  const FileCreator = FolderHandler(ExplorerActions.CREATE_FILE);
+  const FolderCreator = ExplorerDataHandler(ExplorerActions.CREATE_FOLDER);
+  const FileCreator = ExplorerDataHandler(ExplorerActions.CREATE_FILE);
+  const DeleteItem = ExplorerDataHandler(ExplorerActions.DELETE_ITEM);
 
   return (
     <div className="app">
@@ -58,6 +62,7 @@ function App() {
         data={listData}
         folderCreator={FolderCreator}
         fileCreator={FileCreator}
+        deleteHandler={DeleteItem}
         key={"outter-explorer"}
       />
     </div>

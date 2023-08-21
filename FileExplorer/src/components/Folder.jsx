@@ -7,7 +7,13 @@ import NewItemInputBox from "./molecules/NewItemInputBox";
 import Explorer from "./Explorer";
 
 const Folder = (FolderProps) => {
-  const { item, folderCreator, fileCreator, path = [] } = FolderProps;
+  const {
+    item,
+    folderCreator,
+    fileCreator,
+    deleteHandler,
+    path = [],
+  } = FolderProps;
   const { itemName, subItems, isFolder } = item;
 
   const [isOpened, setIsOpened] = useState(false);
@@ -41,6 +47,7 @@ const Folder = (FolderProps) => {
     }
   };
 
+  const deleteItemHandler = () => deleteHandler(path);
   const toggleFolderOpen = () => setIsOpened(!isOpened);
   const folderCreateHandler = () => creatorHandler(true);
   const fileCreateHandler = () => creatorHandler(false);
@@ -56,6 +63,7 @@ const Folder = (FolderProps) => {
         />
         <ElementIconGroup
           isFolder={isFolder}
+          deleteHandler={deleteItemHandler}
           folderCreateHandler={folderCreateHandler}
           fileCreateHandler={fileCreateHandler}
         />
@@ -66,6 +74,7 @@ const Folder = (FolderProps) => {
           data={subItems}
           folderCreator={folderCreator}
           fileCreator={fileCreator}
+          deleteHandler={deleteItemHandler}
           path={path}
         />
       )}
@@ -83,6 +92,7 @@ Folder.propTypes = {
   item: PropTypes.object.isRequired,
   folderCreator: PropTypes.func.isRequired,
   fileCreator: PropTypes.func.isRequired,
+  deleteHandler: PropTypes.func.isRequired,
   path: PropTypes.array,
 };
 
