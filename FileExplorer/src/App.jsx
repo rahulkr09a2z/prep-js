@@ -43,7 +43,7 @@ function App() {
           };
           break;
         case ExplorerActions.DELETE_ITEM:
-          current[path[path.length - 1]] = null;
+          // TODO: Fix delete functionality
           break;
         case ExplorerActions.RENAME_ITEM:
           current[path[path.length - 1]] = {

@@ -1,11 +1,11 @@
 # FileExplorer
 Features:
     - Add New File & Folder
-    - Delete a File & Folder
     - Rename a File & Folder
 
 TODO:
     - Can add a feature of unique item name only
+    - Delete Functionality needs to be fixed
 
 
 # React + Vite

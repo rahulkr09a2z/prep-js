@@ -69,7 +69,7 @@ const Folder = (FolderProps) => {
 
   const togglerRenameState = () => renameVisibleHandler(!renameItem.isVisible);
   const deActivateRenameState = () => renameVisibleHandler(false);
-  const deleteItemHandler = () => deleteHandler(path);
+  const deleteItemHandler = () => deleteHandler(path, itemName);
   const toggleFolderOpen = () => setIsOpened(!isOpened);
   const folderCreateHandler = () => creatorHandler(true);
   const fileCreateHandler = () => creatorHandler(false);
