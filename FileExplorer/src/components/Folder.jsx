@@ -12,6 +12,7 @@ const Folder = (FolderProps) => {
     folderCreator,
     fileCreator,
     deleteHandler,
+    renameHandler,
     path = [],
   } = FolderProps;
   const { itemName, subItems, isFolder } = item;
@@ -21,12 +22,21 @@ const Folder = (FolderProps) => {
     isVisible: false,
     isFolder: false,
   });
+  const [renameItem, setRenameItem] = useState({
+    isVisible: false,
+    newName: "",
+  });
 
   const resetInputState = () =>
     setShowInput({
       isVisible: false,
       isFolder: false,
     });
+  const renameVisibleHandler = (val) =>
+    setRenameItem((prev) => ({
+      ...prev,
+      isVisible: val,
+    }));
 
   const creatorHandler = (isFolderVal) => {
     setIsOpened(true);
@@ -47,6 +57,18 @@ const Folder = (FolderProps) => {
     }
   };
 
+  const renameItemHandler = (e) => {
+    e.stopPropagation();
+    const keyCode = e.keyCode;
+    const inputValue = e.target.value;
+    if (keyCode == 13 && inputValue) {
+      renameHandler(path, inputValue);
+      deActivateRenameState();
+    }
+  };
+
+  const togglerRenameState = () => renameVisibleHandler(!renameItem.isVisible);
+  const deActivateRenameState = () => renameVisibleHandler(false);
   const deleteItemHandler = () => deleteHandler(path);
   const toggleFolderOpen = () => setIsOpened(!isOpened);
   const folderCreateHandler = () => creatorHandler(true);
@@ -60,12 +82,16 @@ const Folder = (FolderProps) => {
           isFolder={isFolder}
           isOpened={isOpened}
           clickHandler={toggleFolderOpen}
+          isEditMode={renameItem.isVisible}
+          inputBlurHandler={deActivateRenameState}
+          renameHandler={renameItemHandler}
         />
         <ElementIconGroup
           isFolder={isFolder}
           deleteHandler={deleteItemHandler}
           folderCreateHandler={folderCreateHandler}
           fileCreateHandler={fileCreateHandler}
+          renameActivator={togglerRenameState}
         />
       </div>
       {isOpened && (
@@ -75,6 +101,7 @@ const Folder = (FolderProps) => {
           folderCreator={folderCreator}
           fileCreator={fileCreator}
           deleteHandler={deleteItemHandler}
+          renameHandler={renameItemHandler}
           path={path}
         />
       )}
@@ -93,6 +120,7 @@ Folder.propTypes = {
   folderCreator: PropTypes.func.isRequired,
   fileCreator: PropTypes.func.isRequired,
   deleteHandler: PropTypes.func.isRequired,
+  renameHandler: PropTypes.func.isRequired,
   path: PropTypes.array,
 };
 

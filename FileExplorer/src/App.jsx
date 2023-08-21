@@ -45,6 +45,12 @@ function App() {
         case ExplorerActions.DELETE_ITEM:
           current[path[path.length - 1]] = null;
           break;
+        case ExplorerActions.RENAME_ITEM:
+          current[path[path.length - 1]] = {
+            ...currElCopy,
+            itemName: newItemName,
+          };
+          break;
         default:
           break;
       }
@@ -54,6 +60,7 @@ function App() {
   const FolderCreator = ExplorerDataHandler(ExplorerActions.CREATE_FOLDER);
   const FileCreator = ExplorerDataHandler(ExplorerActions.CREATE_FILE);
   const DeleteItem = ExplorerDataHandler(ExplorerActions.DELETE_ITEM);
+  const RenameItem = ExplorerDataHandler(ExplorerActions.RENAME_ITEM);
 
   return (
     <div className="app">
@@ -63,6 +70,7 @@ function App() {
         folderCreator={FolderCreator}
         fileCreator={FileCreator}
         deleteHandler={DeleteItem}
+        renameHandler={RenameItem}
         key={"outter-explorer"}
       />
     </div>

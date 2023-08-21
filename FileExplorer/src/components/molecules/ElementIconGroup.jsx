@@ -4,14 +4,26 @@ import {
   AiOutlineFolderAdd,
   AiOutlineDelete,
 } from "react-icons/ai";
+import { MdDriveFileRenameOutline } from "react-icons/md";
 
 import { FOLDER_ICON_SIZE } from "../../constants/IconSizes";
 
 const ElementIconGroup = (ElIconGroupProps) => {
-  const { isFolder, folderCreateHandler, fileCreateHandler, deleteHandler } =
-    ElIconGroupProps;
+  const {
+    isFolder,
+    folderCreateHandler,
+    fileCreateHandler,
+    renameActivator,
+    deleteHandler,
+  } = ElIconGroupProps;
+  
   return (
     <div className="folder-right el-cont">
+      <MdDriveFileRenameOutline
+        className="side-icon"
+        size={FOLDER_ICON_SIZE}
+        onClick={renameActivator}
+      />
       <AiOutlineDelete
         className="side-icon"
         size={FOLDER_ICON_SIZE}
@@ -39,6 +51,7 @@ ElementIconGroup.propTypes = {
   isFolder: PropTypes.bool.isRequired,
   folderCreateHandler: PropTypes.func.isRequired,
   fileCreateHandler: PropTypes.func.isRequired,
+  renameActivator: PropTypes.func.isRequired,
   deleteHandler: PropTypes.func.isRequired,
 };
 

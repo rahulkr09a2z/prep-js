@@ -8,6 +8,7 @@ const Explorer = ({
   folderCreator,
   fileCreator,
   deleteHandler,
+  renameHandler,
   path = [],
 }) => {
   return (
@@ -23,6 +24,7 @@ const Explorer = ({
                   folderCreator={folderCreator}
                   fileCreator={fileCreator}
                   deleteHandler={deleteHandler}
+                  renameHandler={renameHandler}
                 />
               </div>
             );
@@ -36,6 +38,7 @@ Explorer.propTypes = {
   folderCreator: PropTypes.func.isRequired,
   fileCreator: PropTypes.func.isRequired,
   deleteHandler: PropTypes.func.isRequired,
+  renameHandler:PropTypes.func.isRequired,
   classTitle: PropTypes.string,
   path: PropTypes.array,
 };
