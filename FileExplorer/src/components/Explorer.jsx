@@ -1,10 +1,8 @@
 import PropTypes from "prop-types";
 
 import Folder from "./Folder";
-import File from "./File";
 
 const Explorer = ({
-  key,
   data,
   classTitle,
   folderCreator,
@@ -12,21 +10,17 @@ const Explorer = ({
   path = [],
 }) => {
   return (
-    <div className={classTitle} key={key}>
+    <div className={classTitle} key={classTitle}>
       {data &&
         data.map((item, index) => {
           return (
             <div className="item-container" key={item.itemName}>
-              {item.isFolder ? (
-                <Folder
-                  item={item}
-                  path={[...path, index]}
-                  folderCreator={folderCreator}
-                  fileCreator={fileCreator}
-                />
-              ) : (
-                <File item={item} />
-              )}
+              <Folder
+                item={item}
+                path={[...path, index]}
+                folderCreator={folderCreator}
+                fileCreator={fileCreator}
+              />
             </div>
           );
         })}
@@ -35,7 +29,6 @@ const Explorer = ({
 };
 
 Explorer.propTypes = {
-  key: PropTypes.string.isRequired,
   data: PropTypes.array.isRequired,
   folderCreator: PropTypes.func.isRequired,
   fileCreator: PropTypes.func.isRequired,

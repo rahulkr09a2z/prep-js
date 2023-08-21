@@ -21,8 +21,14 @@
   border-radius: 4px;
   padding: 12px 8px;
 }
-.item-container {
+
+.map-item-cont,
+.input-container {
   padding-left: 20px;
+}
+
+.map-item-padding {
+  padding: 8px 4px;
 }
 
 .el-cont {
@@ -31,35 +37,28 @@
   align-items: center;
 }
 
-.item-padding {
-  padding: 8px 4px;
-}
-
-.folder {
+.single-item-box {
   display: flex;
   justify-content: space-between;
   cursor: pointer;
 }
 
-.folder,
-.file,
+.single-item-box,
 .new-item {
   color: var(--primary-text-color);
 }
 
-.folder:hover,
-.file:hover {
+.single-item-box:hover {
   background-color: var(--bg-hover-color);
   color: var(--secondary-text-color);
 }
 
-.folder h3,
-.file > h4 {
+.el-title-text :first-child {
   margin: 0;
   padding-left: 4px;
 }
 
-.create-icon:hover {
+.side-icon:hover {
   color: var(--icon-hover-color);
 }
 

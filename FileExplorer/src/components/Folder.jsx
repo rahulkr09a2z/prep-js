@@ -1,19 +1,14 @@
-import PropTypes from "prop-types";
-import {
-  AiFillFile,
-  AiFillFolder,
-  AiFillFolderOpen,
-  AiOutlineFileAdd,
-  AiOutlineFolderAdd,
-} from "react-icons/ai";
-
-import Explorer from "./Explorer";
-import { FILE_ICON_SIZE, FOLDER_ICON_SIZE } from "../constants/IconSizes";
 import { useState } from "react";
+import PropTypes from "prop-types";
+
+import ElementTitle from "./molecules/ElementTitle";
+import ElementIconGroup from "./molecules/ElementIconGroup";
+import NewItemInputBox from "./molecules/NewItemInputBox";
+import Explorer from "./Explorer";
 
 const Folder = (FolderProps) => {
   const { item, folderCreator, fileCreator, path = [] } = FolderProps;
-  const { itemName, subItems } = item;
+  const { itemName, subItems, isFolder } = item;
 
   const [isOpened, setIsOpened] = useState(false);
   const [showInput, setShowInput] = useState({
@@ -29,11 +24,10 @@ const Folder = (FolderProps) => {
 
   const creatorHandler = (isFolderVal) => {
     setIsOpened(true);
-    setShowInput((prev) => ({
-      ...prev,
+    setShowInput({
       isVisible: true,
       isFolder: isFolderVal,
-    }));
+    });
   };
 
   const handleNewItem = (e) => {
@@ -48,58 +42,40 @@ const Folder = (FolderProps) => {
   };
 
   const toggleFolderOpen = () => setIsOpened(!isOpened);
-  const fileCreateHandler = () => creatorHandler(false);
   const folderCreateHandler = () => creatorHandler(true);
+  const fileCreateHandler = () => creatorHandler(false);
 
   return (
-    <>
-      <div className="folder item-padding">
-        <div className="folder-left el-cont" onClick={toggleFolderOpen}>
-          {isOpened ? (
-            <AiFillFolderOpen size={FOLDER_ICON_SIZE} />
-          ) : (
-            <AiFillFolder size={FOLDER_ICON_SIZE} />
-          )}
-          <h3>{itemName}</h3>
-        </div>
-        <div className="folder-right el-cont">
-          <AiOutlineFolderAdd
-            className="create-icon"
-            size={FOLDER_ICON_SIZE}
-            onClick={folderCreateHandler}
-          />
-          <AiOutlineFileAdd
-            className="create-icon"
-            size={FOLDER_ICON_SIZE}
-            onClick={fileCreateHandler}
-          />
-        </div>
+    <div className="map-item-cont">
+      <div className="single-item-box map-item-padding">
+        <ElementTitle
+          title={itemName}
+          isFolder={isFolder}
+          isOpened={isOpened}
+          clickHandler={toggleFolderOpen}
+        />
+        <ElementIconGroup
+          isFolder={isFolder}
+          folderCreateHandler={folderCreateHandler}
+          fileCreateHandler={fileCreateHandler}
+        />
       </div>
       {isOpened && (
         <Explorer
-          key={`subfolder-${itemName}`}
+          classTitle={`subfolder-${itemName}`}
           data={subItems}
           folderCreator={folderCreator}
           fileCreator={fileCreator}
           path={path}
         />
       )}
-      {showInput.isVisible && (
-        <div className="new-item item-container el-cont">
-          {showInput.isFolder ? (
-            <AiFillFolder size={FOLDER_ICON_SIZE} />
-          ) : (
-            <AiFillFile size={FILE_ICON_SIZE} />
-          )}
-          <input
-            type="text"
-            onKeyDown={handleNewItem}
-            autoFocus
-            onBlur={resetInputState}
-          />
-        </div>
-      )}
-    </>
+      <NewItemInputBox
+        isVisible={showInput.isVisible}
+        isFolder={showInput.isFolder}
+        handleNewItem={handleNewItem}
+        resetInputState={resetInputState}
+      />
+    </div>
   );
 };
 
