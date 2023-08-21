@@ -7,7 +7,6 @@ const Explorer = ({
   key,
   data,
   classTitle,
-  folderToggler,
   folderCreator,
   fileCreator,
   path = [],
@@ -21,7 +20,6 @@ const Explorer = ({
               {item.isFolder ? (
                 <Folder
                   item={item}
-                  folderToggler={folderToggler}
                   path={[...path, index]}
                   folderCreator={folderCreator}
                   fileCreator={fileCreator}
@@ -39,7 +37,6 @@ const Explorer = ({
 Explorer.propTypes = {
   key: PropTypes.string.isRequired,
   data: PropTypes.array.isRequired,
-  folderToggler: PropTypes.func.isRequired,
   folderCreator: PropTypes.func.isRequired,
   fileCreator: PropTypes.func.isRequired,
   classTitle: PropTypes.string,

@@ -1,7 +1,6 @@
 export const NewFolderObj = {
   itemName: "New_Folder",
   isFolder: true,
-  isOpened: false,
   subItems: [],
 };
 export const NewFileObj = {

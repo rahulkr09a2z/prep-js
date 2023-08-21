@@ -42,7 +42,8 @@
 }
 
 .folder,
-.file {
+.file,
+.new-item {
   color: var(--primary-text-color);
 }
 
@@ -60,4 +61,8 @@
 
 .create-icon:hover {
   color: var(--icon-hover-color);
+}
+
+.new-item > input {
+  margin-left: 4px;
 }

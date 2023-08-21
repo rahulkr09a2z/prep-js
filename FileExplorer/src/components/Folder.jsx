@@ -1,5 +1,6 @@
 import PropTypes from "prop-types";
 import {
+  AiFillFile,
   AiFillFolder,
   AiFillFolderOpen,
   AiOutlineFileAdd,
@@ -7,27 +8,53 @@ import {
 } from "react-icons/ai";
 
 import Explorer from "./Explorer";
-import { FOLDER_ICON_SIZE } from "../constants/IconSizes";
-
+import { FILE_ICON_SIZE, FOLDER_ICON_SIZE } from "../constants/IconSizes";
+import { useState } from "react";
 
 const Folder = (FolderProps) => {
-  const {
-    item,
-    folderToggler,
-    folderCreator,
-    fileCreator,
-    path = [],
-  } = FolderProps;
-  const { itemName, isOpened, subItems } = item;
+  const { item, folderCreator, fileCreator, path = [] } = FolderProps;
+  const { itemName, subItems } = item;
 
-  const openHandler = () => folderToggler(path);
-  const folderCreateHandler = () => folderCreator(path);
-  const fileCreatorHandler = () => fileCreator(path);
+  const [isOpened, setIsOpened] = useState(false);
+  const [showInput, setShowInput] = useState({
+    isVisible: false,
+    isFolder: false,
+  });
+
+  const resetInputState = () =>
+    setShowInput({
+      isVisible: false,
+      isFolder: false,
+    });
+
+  const creatorHandler = (isFolderVal) => {
+    setIsOpened(true);
+    setShowInput((prev) => ({
+      ...prev,
+      isVisible: true,
+      isFolder: isFolderVal,
+    }));
+  };
+
+  const handleNewItem = (e) => {
+    e.stopPropagation();
+    const keyCode = e.keyCode;
+    const inputValue = e.target.value;
+    if (keyCode == 13 && inputValue) {
+      if (showInput.isFolder) folderCreator(path, inputValue);
+      else fileCreator(path, inputValue);
+      resetInputState();
+    }
+  };
+
+  const toggleFolderOpen = () => setIsOpened(!isOpened);
+  const fileCreateHandler = () => creatorHandler(false);
+  const folderCreateHandler = () => creatorHandler(true);
 
   return (
     <>
       <div className="folder item-padding">
-        <div className="folder-left el-cont" onClick={openHandler}>
+        <div className="folder-left el-cont" onClick={toggleFolderOpen}>
           {isOpened ? (
             <AiFillFolderOpen size={FOLDER_ICON_SIZE} />
           ) : (
@@ -44,7 +71,7 @@ const Folder = (FolderProps) => {
           <AiOutlineFileAdd
             className="create-icon"
             size={FOLDER_ICON_SIZE}
-            onClick={fileCreatorHandler}
+            onClick={fileCreateHandler}
           />
         </div>
       </div>
@@ -52,11 +79,25 @@ const Folder = (FolderProps) => {
         <Explorer
           key={`subfolder-${itemName}`}
           data={subItems}
-          folderToggler={folderToggler}
           folderCreator={folderCreator}
           fileCreator={fileCreator}
           path={path}
         />
+      )}
+      {showInput.isVisible && (
+        <div className="new-item item-container el-cont">
+          {showInput.isFolder ? (
+            <AiFillFolder size={FOLDER_ICON_SIZE} />
+          ) : (
+            <AiFillFile size={FILE_ICON_SIZE} />
+          )}
+          <input
+            type="text"
+            onKeyDown={handleNewItem}
+            autoFocus
+            onBlur={resetInputState}
+          />
+        </div>
       )}
     </>
   );
@@ -64,7 +105,6 @@ const Folder = (FolderProps) => {
 
 Folder.propTypes = {
   item: PropTypes.object.isRequired,
-  folderToggler: PropTypes.func.isRequired,
   folderCreator: PropTypes.func.isRequired,
   fileCreator: PropTypes.func.isRequired,
   path: PropTypes.array,
