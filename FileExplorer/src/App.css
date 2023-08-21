@@ -1,4 +1,63 @@
-.app{
+:root {
+  --border-color: rgb(173, 171, 171);
+  --primary-text-color: rgb(143, 83, 83);
+  --secondary-text-color: rgb(247, 242, 242);
+  --icon-hover-color: rgb(231, 154, 154);
+  --bg-hover-color: rgb(192, 192, 199);
+}
+
+.app {
   margin: 0;
   padding: 0;
+  font-family: sans-serif;
+}
+
+.explorer-container {
+  width: max(25vw, 300px);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  border: 2px solid var(--border-color);
+  border-radius: 4px;
+  padding: 12px 8px;
+}
+.item-container {
+  padding-left: 20px;
+}
+
+.el-cont {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.item-padding {
+  padding: 8px 4px;
+}
+
+.folder {
+  display: flex;
+  justify-content: space-between;
+  cursor: pointer;
+}
+
+.folder,
+.file {
+  color: var(--primary-text-color);
+}
+
+.folder:hover,
+.file:hover {
+  background-color: var(--bg-hover-color);
+  color: var(--secondary-text-color);
+}
+
+.folder h3,
+.file > h4 {
+  margin: 0;
+  padding-left: 4px;
+}
+
+.create-icon:hover {
+  color: var(--icon-hover-color);
 }
