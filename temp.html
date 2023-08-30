@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+.container_row{
+  display: grid;
+}
+
+.layer1, .layer2{
+  grid-column: 1;
+  grid-row: 1;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container_row">
+        <div class="layer1">
+            I am the layer behind
+        </div>
+        <div class="layer2">
+            I am actually on top
+        </div>
+    </div>
+</body>
+<script>
+    let car1= {
+color:"RED",
+company:"Ferrari"
+};
+
+function purchaseCar(currency,price){
+console.log(`I have purchaesd ${this.color} - ${this.company} car for ${currency}${price}`);
+}
+
+Function.prototype.myCall = function (ctx={},...args){
+if(typeof this!== "function"){
+throw new Error(this + "It's not callable");
+}
+ctx.fn=this;
+ctx.fn(...args);
+};
+
+purchaseCar.myCall(car1,"$",54321);
+
+    </script>
+</html>
