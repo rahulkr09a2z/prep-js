@@ -9,9 +9,9 @@
  * Input: [0, 0, 1, 1, 1, 2, 2, 3, 3, 4]    ------->>>>>    Output: 5, [0, 1, 2, 3, 4, _, ,_ ,_]
  */
 
-// METHOD_1 -
+// METHOD_1 
 // TIME_COMPLEXITY : O(n)
-// SPACE_COMPLEXITY : O(n)
+// SPACE_COMPLEXITY : O(1)
 function removeDuplicateInSortedArr1(arr) {
   if (arr.length < 1) return 0;
   let i = 0;
@@ -26,8 +26,8 @@ function removeDuplicateInSortedArr1(arr) {
 }
 
 // METHOD_2:
-// TIME_COMPLEXITY : O(nlogn)
-// SPACE_COMPLEXITY : O(n)
+// TIME_COMPLEXITY : O(n)
+// SPACE_COMPLEXITY : O(1)
 function removeDuplicateInSortedArr2(arr) {
   if (arr.length < 1) return 0;
   for (let i = 0; i < arr.length; i++) {
